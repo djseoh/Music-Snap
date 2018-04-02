@@ -1,38 +1,15 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
 <head>
-  <title>Spotify Web Playback SDK Quick Start Tutorial</title>
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <script src="https://spotify-player.herokuapp.com/spotify-player.js"></script>
 </head>
+
 <body>
-  <h1>Spotify Web Playback SDK Quick Start Tutorial</h1>
-  <h2>Open your console log: <code>View > Developer > JavaScript Console</code></h2>
-
-  <script src="https://sdk.scdn.co/spotify-player.js"></script>
-  <script>
-    window.onSpotifyWebPlaybackSDKReady = () => {
-      const token = '[My Spotify Web API access token]';
-      const player = new Spotify.Player({
-        name: 'Web Playback SDK Quick Start Player',
-        getOAuthToken: cb => { cb(token); }
-      });
-
-      // Error handling
-      player.addListener('initialization_error', ({ message }) => { console.error(message); });
-      player.addListener('authentication_error', ({ message }) => { console.error(message); });
-      player.addListener('account_error', ({ message }) => { console.error(message); });
-      player.addListener('playback_error', ({ message }) => { console.error(message); });
-
-      // Playback status updates
-      player.addListener('player_state_changed', state => { console.log(state); });
-
-      // Ready
-      player.addListener('ready', ({ device_id }) => {
-        console.log('Ready with Device ID', device_id);
-      });
-
-      // Connect to the player!
-      player.connect();
-    };
-  </script>
+<div class="container">
+        <div class="login-container hidden" id="js-login-container">
+          <button class="btn btn--login" id="js-btn-login">Login with Spotify</button>
+        </div>
+        <div class="main-container hidden" id="js-main-container"></div>
+</div>
+<script type='text/javascript' src='assets/javascript/music-snap.js'></script>
 </body>
-</html>

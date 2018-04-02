@@ -2,43 +2,40 @@
 <head>
     <meta chatset="UTF-8">
     <title>Music Snap</title>
-    <!-- reset.css -->
+    <!-- reset.css
     <link rel="stylesheet" href="assets/css/reset.css">
-    <!-- Bootstrap CDN -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    Bootstrap CDN
+    
     <!-- Stylesheet -->
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
     <!-- JQuery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <!-- Google fonts -->
-    
-
-    
+    <script src="https://spotify-player.herokuapp.com/spotify-player.js"></script>
+  
 </head>
 <body>
-    <div class="background">
+        <div class="topnav">
+            <a href="music-snap.html"><img class="icon" src="assets/images/coolest-icon.svg"></a>
+        </div>
+        <!-- <ul class="topnav">
+            <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+            <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        </ul>
+        <ul class="nav">
+            <li><a href="#">Page 1</a></li>
+            <li><a href="#">Page 2</a></li>
+        </ul>        -->
+      
+    <div class="container">
+        <div class="login-container hidden" id="js-login-container">
+            <button class="btn btn--login" id="js-btn-login">Login with Spotify</button>
+        </div>
+        <div class="main-container hidden" id="js-main-container"></div>
+    </div>
+    <!-- <div class="background">
         <nav class="navbar">
-            <div class="container container-fluid">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="#"><img class="clearfix icon" src="assets/images/cooler-icon.svg"></a>
-                </div>
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-                    <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li class="active"><a  href="#">Home</a></li>
-                    <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Page 1 <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                           <li><a href="#">Page 1-1</a></li>
-                           <li><a href="#">Page 1-2</a></li>
-                           <li><a href="#">Page 1-3</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="#">Page 2</a></li>
-                </ul>
-                
-            </div>
+            
         </nav>
         <div class ="jumbotron">                
             <h2>Search for songs, bios, and more songs</h2>
@@ -48,11 +45,8 @@
                 <button type="submit" class="btn btn-default">Submit</button>
             </div>
         </div>
-    </div>
-    <div id="suggestions">
-        <h2>Suggestions</h2>
-    </div>
+    </div> -->
 
     <!-- Javascript -->
-    <script type='text/javascript' src='assets/javascript/giphy.js'></script>
+    <script type='text/javascript' src='assets/javascript/music-snap.js'></script>
 </body>
