@@ -33,6 +33,7 @@ $('#submit-artist').on("click", function(){
 
             console.log('<a href = "'+results[0].url + '"></a>');
 
+            $("#artist-table > thead").append("<tr><th>Artist Name</th><th>Image</th><th>Last.FM</th></tr>")
 
              for (var i = 0; i<10; i++){
 
@@ -52,3 +53,6 @@ $('#submit-artist').on("click", function(){
      } 
      
 });
+
+
+
