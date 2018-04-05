@@ -39,7 +39,7 @@ if (songtitle !== "") {
 
             lyrics = data.message.body.lyrics;
 
-            $('.lyrics').html(lyrics.lyrics_body);
+            $('.lyrics').html(lyrics.lyrics_body + '<br><br>' + lyrics.lyrics_copyright);
 
         },
         error: function (jqXHR, textStatus, errorThrown) {

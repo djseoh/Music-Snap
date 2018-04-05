@@ -172,6 +172,9 @@ ul.topnav li a {
     padding: 14px 16px;
     text-decoration: none;
 }
+.lyrics{
+    white-space: pre-line;
+}
 
 ul.topnav li a:hover:not(.active) {background-color: #111;}
 
