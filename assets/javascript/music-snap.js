@@ -20,7 +20,7 @@ return `
     <div class="now-playing__name">${data.item.name}</div>
     <div class="now-playing__artist">${data.item.artists[0].name}</div>
     <div class="play-row">
-    <button class="prev-btn" onClick="play(${data.is_playing})">play/pause</button>
+    <button class="prev-btn" onClick="grabAlbum(${data})">play/pause</button>
     <div class="now-playing__status">${data.is_playing ? 'Playing' : 'Paused'}</div>
     </div>
     <div class="progress">
@@ -32,14 +32,15 @@ return `
 `;
 };
 
-function grabAlbum(playing) {
-spotifyApi.getMyDevices( function (error, datas) {
-console.log(datas.devices);
-let id = {
-  device_id: datas.devices[0].id
-}
-playing ? spotifyApi.pause(id) : spotifyApi.play(id);
-})
+function grabAlbum(dats) {
+  console.log(dats)
+// spotifyApi.getMyDevices( function (error, datas) {
+// console.log(datas.devices);
+// let id = {
+//   device_id: datas.devices[0].id
+// }
+// playing ? spotifyApi.pause(id) : spotifyApi.play(id);
+// })
 }
 
 spotifyPlayer.on('update', response => {
