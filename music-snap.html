@@ -1,25 +1,31 @@
 <!Doctype html>
+
 <head>
     <meta chatset="UTF-8">
     <title>Music Snap</title>
     <!-- reset.css
     <link rel="stylesheet" href="assets/css/reset.css">
-    Bootstrap CDN
-    
+    Bootstrap CDN-->
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous"> -->
     <!-- Stylesheet -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" 
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
     <!-- JQuery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <!-- Google fonts -->
+    <!-- Library -->
     <script src="https://spotify-player.herokuapp.com/spotify-player.js"></script>
     <script type='text/javascript' src='assets/javascript/spotify-web-api.js'></script>
-  
+
 </head>
+
 <body>
-        <div class="topnav">
-            <a href="music-snap.html"><img class="icon" src="assets/images/coolest-icon.svg"></a>
-        </div>
-        <!-- <ul class="topnav">
+    <div class="topnav">
+        <a href="music-snap.html">
+            <img class="icon" src="assets/images/coolest-icon.svg">
+        </a>
+    </div>
+    <!-- <ul class="topnav">
             <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
             <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
         </ul>
@@ -27,7 +33,7 @@
             <li><a href="#">Page 1</a></li>
             <li><a href="#">Page 2</a></li>
         </ul>        -->
-      
+
     <div class="container">
         <div class="login-container hidden" id="js-login-container">
             <button class="btn btn--login" id="js-btn-login">Login with Spotify</button>
@@ -47,6 +53,19 @@
             </div>
         </div>
     </div> -->
+
+    <!-- <div id="search-artist">Search for an Artist: 
+            <input type="text" id="user-artist">
+            <button id="submit-artist" class="btn btn-info">Submit</button>
+        </div> -->
+
+    <!-- <div id="search-lyrics">Search for Song Lyrics:<br> 
+            Title<input type="text" id="song-title">
+            Artist<input type="text" id="song-artist">
+            
+        </div> -->
+    <!-- <button id="submit-lyrics" class="btn btn-info">Lyrics</button> -->
+    
 
     <!-- Javascript -->
     <script type='text/javascript' src='assets/javascript/music-snap.js'></script>
