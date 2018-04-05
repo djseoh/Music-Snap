@@ -6,7 +6,92 @@ var mainContainer = document.getElementById('js-main-container'),
 var spotifyPlayer = new SpotifyPlayer();
 
 var template = function (data) {
-  return `
+    var key = '6524dd6282a581b16835b8d99cee0ae2';
+    var key2 = '2681d0ca08dcb21966cf6cd38c94d4b8';
+    var fmKey = '6c8fa2acf11a4df27e6843f084a007b7';
+    $('#lyrics').empty();
+    $('tbody').empty();
+    var songtitle = data.item.name;
+    var artist = data.item.artists[0].name;
+
+    console.log(songtitle)
+    console.log(artist);
+    //check if entered song title is blank
+    if (songtitle !== "") {
+
+        $.ajax({
+            type: "GET",
+            data: {
+                apikey: key,
+                q_artist: artist,
+                q_track: songtitle,
+                format: "jsonp",
+                callback: "jsonp_callback"
+            },
+            url: "https://api.musixmatch.com/ws/1.1/matcher.lyrics.get",
+            dataType: "jsonp",
+            jsonpCallback: 'jsonp_callback',
+            contentType: 'application/json',
+            success: function (data) {
+                console.log(data);
+
+                console.log(data.message.body.lyrics.lyrics_body);
+
+                lyrics = data.message.body.lyrics;
+
+                $('.lyrics').html(lyrics.lyrics_body);
+
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(jqXHR);
+                console.log(textStatus);
+                console.log(errorThrown);
+            }
+        });
+    };
+
+    if (artist !== "") {
+        $.ajax({
+            type: "GET",
+            data: {
+                api_key: fmKey,
+                artist: artist,
+                format: "json",
+                limit: 10
+            },
+            url: "http://ws.audioscrobbler.com/2.0/?method=artist.getinfo",
+            contentType: 'application/json',
+            success: function (data) {
+                console.log(data);
+
+                var bio = data.artist.bio.summary;
+                var artistpic = data.artist.image[2]['#text'];
+                var relatedartists = data.artist.similar.artist;
+                console.log(relatedartists);
+
+                $('#artist-bio').html('<img src =' + artistpic + '><br>' + bio + '<br>');
+
+                $("#related-artist-table > thead").append("<tr><th>Related Artists</th></tr>")
+
+                for (var i = 0; i < relatedartists.length; i++) {
+
+                    $("#related-artist-table > tbody").append("<tr><td><img src="
+                        + relatedartists[i].image[1]['#text'] + "></td><td>"
+                        + relatedartists[i].name + "</td><td>"
+                        + '<a href="' + relatedartists[i].url + '"target="_blank">' + relatedartists[i].name + " on lastFM</a></td></tr>");
+
+                    console.log(relatedartists[i]);
+
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(jqXHR);
+                console.log(textStatus);
+                console.log(errorThrown);
+            }
+        });
+    };
+    return `
     <div class="main-wrapper">
       <div class="now-playing__img">
         <img src="${data.item.album.images[0].url}">
@@ -18,24 +103,47 @@ var template = function (data) {
         <div class="progress">
           <div class="progress__bar" style="width:${data.progress_ms * 100 / data.item.duration_ms}%"></div>
         </div>
+        <div class="lyrics"></div>
+        <div id="artist-bio">
+        </div>
+    
+          <div id="artist">
+                <table class="table table-hover" id='artist-table'>
+                        <thead>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                        </table>
+        
+        </div>
+        <div id="relatedartist">
+            <table class="table table-hover" id='related-artist-table'>
+                    <thead>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                    </table>
+    
+    </div>
       </div>
     </div>
     <div class="background" style="background-image:url(${data.item.album.images[0].url})"></div>
   `;
-};
+
+}
 
 spotifyPlayer.on('update', response => {
-  mainContainer.innerHTML = template(response);
+    mainContainer.innerHTML = template(response);
 });
 
 spotifyPlayer.on('login', user => {
-  if (user === null) {
-    loginContainer.style.display = 'block';
-    mainContainer.style.display = 'none';
-  } else {
-    loginContainer.style.display = 'none';
-    mainContainer.style.display = 'block';
-  }
+    if (user === null) {
+        loginContainer.style.display = 'block';
+        mainContainer.style.display = 'none';
+    } else {
+        loginContainer.style.display = 'none';
+        mainContainer.style.display = 'block';
+    }
 });
 
 loginButton.addEventListener('click', () => {
@@ -43,4 +151,6 @@ loginButton.addEventListener('click', () => {
 });
 
 spotifyPlayer.init();
+
+
 

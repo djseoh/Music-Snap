@@ -46,23 +46,23 @@ $('#submit-lyrics').on("click", function(){
     $('#lyrics').empty();
 
     
-     var songtitle = $('#song-title').val().trim();
-     var artist = $('#song-artist').val().trim();
-
-     console.log(artist);
+    var songtitle = $(".now-playing__name").val();
+    var artist = $('.now-playing__artist').val();
+    console.log(songtitle)
+    console.log(artist);
 
     //check if entered song title is blank
     if(songtitle !== ""){
 
-    $.ajax({
-        type: "GET",
-        data: {
-            apikey: key2,
+        $.ajax({
+            type: "GET",
+            data: {
+            apikey: key,
             q_artist:artist,
             q_track: songtitle,
             format:"jsonp",
             callback:"jsonp_callback"
-         },
+        },
         url: "https://api.musixmatch.com/ws/1.1/matcher.lyrics.get",
         dataType: "jsonp",
         jsonpCallback: 'jsonp_callback',
