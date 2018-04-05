@@ -3,7 +3,11 @@ loginContainer = document.getElementById('js-login-container'),
 loginButton = document.getElementById('js-btn-login'),
 background = document.getElementById('js-background');
 
-var spotifyPlayer = new SpotifyPlayer();
+let clientObj = '';
+
+let spotifyPlayer = new SpotifyPlayer();
+let spotifyApi = new SpotifyWebApi();
+let deviceID = '';
 
 var template = function (data) {
 var key = '6524dd6282a581b16835b8d99cee0ae2';
@@ -39,7 +43,7 @@ if (songtitle !== "") {
 
             lyrics = data.message.body.lyrics;
 
-            $('.lyrics').html(lyrics.lyrics_body + '<br><br>' + lyrics.lyrics_copyright);
+            $('.lyrics').html(lyrics.lyrics_body);
 
         },
         error: function (jqXHR, textStatus, errorThrown) {
@@ -65,10 +69,11 @@ if (artist !== "") {
             console.log(data);
 
             var bio = data.artist.bio.summary;
+            var artistpic = data.artist.image[2]['#text'];
             var relatedartists = data.artist.similar.artist;
             console.log(relatedartists);
 
-            $('#artist-bio').html("<br>" + bio);
+            $('#artist-bio').html('<img src =' + artistpic + '><br>' + bio + '<br>');
 
             $("#related-artist-table > thead").append("<tr><th>Related Artists</th></tr>")
 
@@ -102,27 +107,44 @@ return `
     <div class="progress">
         <div class="progress__bar" style="width:${data.progress_ms * 100 / data.item.duration_ms}%"></div>
     </div>
+    <p>
+<a class="btn btn-primary" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Toggle first element</a>
+<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2">Toggle second element</button>
+<button class="btn btn-primary" type="button" data-toggle="collapse" data-target=".multi-collapse" aria-expanded="false" aria-controls="multiCollapseExample1 multiCollapseExample2">Toggle both elements</button>
+</p>
+<div class="row">
+<div class="col">
+<div class="collapse multi-collapse" id="multiCollapseExample1">
+    <div class="card card-body">
     <div class="lyrics"></div>
     <div id="artist-bio">
     </div>
-        <div id="artist">
-            <table class="table table-hover" id='artist-table'>
-                    <thead>
-                    </thead>
-                    <tbody>
-                    </tbody>
-            </table>
-    
     </div>
-    <div id="relatedartist">
-        <table class="table table-hover" id='related-artist-table'>
+</div>
+</div>
+<div class="col">
+<div class="collapse multi-collapse" id="multiCollapseExample2">
+    <div class="card card-body">
+    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+    </div>
+</div>
+    <div id="artist">
+        <table class="table table-hover" id='artist-table'>
                 <thead>
                 </thead>
                 <tbody>
                 </tbody>
         </table>
 
-    </div>
+</div>
+<div id="relatedartist">
+    <table class="table table-hover" id='related-artist-table'>
+            <thead>
+            </thead>
+            <tbody>
+            </tbody>
+    </table>
+</div>
 </div>
 </div>
 <div class="background" style="background-image:url(${data.item.album.images[0].url})"></div>
@@ -131,16 +153,32 @@ return `
 }
 
 spotifyPlayer.on('update', response => {
+switch (true) {
+case (!clientObj || response.item.name !== clientObj.item.name) : 
 mainContainer.innerHTML = template(response);
+console.log(response)
+break;
+case (response.is_playing !== clientObj.is_playing) :
+$('.now-playing__status').html(response.is_playing);
+$('.progress__bar').attr('style', 'width:' + (response.progress_ms * 100 / response.item.duration_ms) + '%')
+break;
+case (response.progress_ms !== clientObj.progress_ms) :
+$('.progress__bar').attr('style', 'width:' + (response.progress_ms * 100 / response.item.duration_ms) + '%')
+break;
+}
+clientObj = response;
 });
 
 spotifyPlayer.on('login', user => {
+spotifyApi.setAccessToken(spotifyPlayer.accessToken);
+console.log(user);
+console.log(spotifyPlayer.accessToken)
 if (user === null) {
-    loginContainer.style.display = 'block';
-    mainContainer.style.display = 'none';
+loginContainer.style.display = 'block';
+mainContainer.style.display = 'none';
 } else {
-    loginContainer.style.display = 'none';
-    mainContainer.style.display = 'block';
+loginContainer.style.display = 'none';
+mainContainer.style.display = 'block';
 }
 });
 
