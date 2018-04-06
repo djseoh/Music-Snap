@@ -5,7 +5,7 @@
     <title>Music Snap</title>
     <!-- reset.css -->
     <link rel="stylesheet" href="assets/css/reset.css">
-
+    <!-- google fonts -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- Bootstrap CDN-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
@@ -15,7 +15,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <!-- Library -->
     <script src="https://spotify-player.herokuapp.com/spotify-player.js"></script>
-    <script type='text/javascript' src='assets/javascript/spotify-web-api.js'></script>
 
 </head>
 
@@ -25,15 +24,6 @@
             <img class="icon" src="assets/images/coolest-icon.svg">
         </a>
     </div>
-    <!-- <ul class="topnav">
-            <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-            <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-        </ul>
-        <ul class="nav">
-            <li><a href="#">Page 1</a></li>
-            <li><a href="#">Page 2</a></li>
-        </ul>        -->
-
     <div class="container">
         <div class="login-container hidden" id="js-login-container">
             <button class="btn btn--login" id="js-btn-login">Login with Spotify</button>
@@ -68,8 +58,6 @@
     
 
     <!-- Javascript -->
-    <script type='text/javascript' src='assets/javascript/music-snap.js'></script>
+    <script type='text/javascript' src='assets/javascript/spotify-web-api.js'></script>
+    <script type='text/javascript' src='assets/javascript/music-snap.js'></script>    
 </body>
-
-
-    <div class="background" style="background-image:url(${data.item.album.images[0].url})"></div>
