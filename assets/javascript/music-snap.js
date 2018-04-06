@@ -23,35 +23,35 @@ console.log(artist);
 //check if entered song title is blank
 if (songtitle !== "") {
 
-    $.ajax({
-        type: "GET",
-        data: {
-            apikey: key,
-            q_artist: artist,
-            q_track: songtitle,
-            format: "jsonp",
-            callback: "jsonp_callback"
-        },
-        url: "https://api.musixmatch.com/ws/1.1/matcher.lyrics.get",
-        dataType: "jsonp",
-        jsonpCallback: 'jsonp_callback',
-        contentType: 'application/json',
-        success: function (data) {
-            console.log(data);
+$.ajax({
+    type: "GET",
+    data: {
+        apikey: key,
+        q_artist: artist,
+        q_track: songtitle,
+        format: "jsonp",
+        callback: "jsonp_callback"
+    },
+    url: "https://api.musixmatch.com/ws/1.1/matcher.lyrics.get",
+    dataType: "jsonp",
+    jsonpCallback: 'jsonp_callback',
+    contentType: 'application/json',
+    success: function (data) {
+        console.log(data);
 
-            console.log(data.message.body.lyrics.lyrics_body);
+        console.log(data.message.body.lyrics.lyrics_body);
 
-            lyrics = data.message.body.lyrics;
+        lyrics = data.message.body.lyrics;
 
-            $('.lyrics').html(lyrics.lyrics_body);
+        $('.lyrics').html(lyrics.lyrics_body + '<br><br>' + lyrics.lyrics_copyright);
 
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-            console.log(jqXHR);
-            console.log(textStatus);
-            console.log(errorThrown);
-        }
-    });
+    },
+    error: function (jqXHR, textStatus, errorThrown) {
+        console.log(jqXHR);
+        console.log(textStatus);
+        console.log(errorThrown);
+    }
+});
 };
 
 if (artist !== "") {
@@ -62,92 +62,62 @@ if (artist !== "") {
             artist: artist,
             format: "json",
             limit: 10
-        },
-        url: "http://ws.audioscrobbler.com/2.0/?method=artist.getinfo",
-        contentType: 'application/json',
-        success: function (data) {
-            console.log(data);
+    },
+    url: "http://ws.audioscrobbler.com/2.0/?method=artist.getinfo",
+    contentType: 'application/json',
+    success: function (data) {
+        console.log(data);
 
-            var bio = data.artist.bio.summary;
-            var artistpic = data.artist.image[2]['#text'];
-            var relatedartists = data.artist.similar.artist;
-            console.log(relatedartists);
+        var bio = data.artist.bio.summary;
+        var artistpic = data.artist.image[2]['#text'];
+        var relatedartists = data.artist.similar.artist;
+        console.log(relatedartists);
 
-            $('#artist-bio').html('<img src =' + artistpic + '><br>' + bio + '<br>');
+        $('#artist-bio').html(bio);
 
-            $("#related-artist-table > thead").append("<tr><th>Related Artists</th></tr>")
+        $("#related-artist-table > thead").append("<tr><th>Related Artists</th></tr>")
 
-            for (var i = 0; i < relatedartists.length; i++) {
+        for (var i = 0; i < relatedartists.length; i++) {
 
-                $("#related-artist-table > tbody").append("<tr><td><img src="
-                    + relatedartists[i].image[1]['#text'] + "></td><td>"
-                    + relatedartists[i].name + "</td><td>"
-                    + '<a href="' + relatedartists[i].url + '"target="_blank">' + relatedartists[i].name + " on lastFM</a></td></tr>");
+            $("#related-artist-table > tbody").append("<tr><td><img src="
+                + relatedartists[i].image[1]['#text'] + "></td><td>"
+                + relatedartists[i].name + "</td><td>"
+                + '<a href="' + relatedartists[i].url + '"target="_blank">' + relatedartists[i].name + " on lastFM</a></td></tr>");
 
                 console.log(relatedartists[i]);
 
-            }
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-            console.log(jqXHR);
-            console.log(textStatus);
-            console.log(errorThrown);
         }
-    });
+    }
+});
 };
 return `
 <div class="main-wrapper">
     <div class="now-playing__img">
-    <img src="${data.item.album.images[0].url}">
+        <img src="${data.item.album.images[0].url}">
     </div>
     <div class="now-playing__side">
-    <div class="now-playing__name">${data.item.name}</div>
-    <div class="now-playing__artist">${data.item.artists[0].name}</div>
-    <div class="now-playing__status">${data.is_playing ? 'Playing' : 'Paused'}</div>
-    <div class="progress">
-        <div class="progress__bar" style="width:${data.progress_ms * 100 / data.item.duration_ms}%"></div>
-    </div>
-    <p>
-<a class="btn btn-primary" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Toggle first element</a>
-<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2">Toggle second element</button>
-<button class="btn btn-primary" type="button" data-toggle="collapse" data-target=".multi-collapse" aria-expanded="false" aria-controls="multiCollapseExample1 multiCollapseExample2">Toggle both elements</button>
-</p>
-<div class="row">
-<div class="col">
-<div class="collapse multi-collapse" id="multiCollapseExample1">
-    <div class="card card-body">
-    <div class="lyrics"></div>
-    <div id="artist-bio">
-    </div>
-    </div>
-</div>
-</div>
-<div class="col">
-<div class="collapse multi-collapse" id="multiCollapseExample2">
-    <div class="card card-body">
-    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+        <div class="now-playing__name">${data.item.name}</div>
+        <div class="now-playing__artist">${data.item.artists[0].name}</div>
+        <div class="now-playing__status">${data.is_playing ? 'Playing' : 'Paused'}</div>
+        <div class="progress">
+            <div class="progress__bar" style="width:${data.progress_ms * 100 / data.item.duration_ms}%"></div>
+        </div>
+        <marquee behavior="scroll" direction="up" style="height:200px;" scrollamount="5">
+        <div class="lyrics"></div>
+        <div id="artist-bio"></div>
+        </marquee>
+        <marquee behavior="scroll" direction="up" style="height:200px;" scrollamount="1">
+            <div id="relatedartist">
+                <table class="table table-hover" id='related-artist-table'>
+                    <thead>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </marquee>
     </div>
 </div>
-    <div id="artist">
-        <table class="table table-hover" id='artist-table'>
-                <thead>
-                </thead>
-                <tbody>
-                </tbody>
-        </table>
-
-</div>
-<div id="relatedartist">
-    <table class="table table-hover" id='related-artist-table'>
-            <thead>
-            </thead>
-            <tbody>
-            </tbody>
-    </table>
-</div>
-</div>
-</div>
-<div class="background" style="background-image:url(${data.item.album.images[0].url})"></div>
 `;
 
 }
