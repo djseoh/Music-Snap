@@ -63,7 +63,7 @@ if (artist !== "") {
             format: "json",
             limit: 10
     },
-    url: "http://ws.audioscrobbler.com/2.0/?method=artist.getinfo",
+    url: "https://ws.audioscrobbler.com/2.0/?method=artist.getinfo",
     contentType: 'application/json',
     success: function (data) {
         console.log(data);
