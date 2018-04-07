@@ -19,7 +19,7 @@ body {
 }
 
 /** Buttons **/
-.btn {
+.login-btn {
   background-color: transparent;
   border-radius: 2em;
   border: 0.2em solid #1ecd97;
@@ -31,7 +31,7 @@ body {
   transition: all 0.25s ease;
 }
 
-.btn:hover {
+.login-btn:hover {
   background: #1ecd97;
   color: #333;
 }
@@ -119,7 +119,7 @@ body {
 .main-container {
   flex: 1;
 }
-ul.topnav {
+/* ul.topnav {
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -135,16 +135,16 @@ ul.topnav li a {
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
-}
+} */
 .lyrics{
     white-space: pre-line;
 }
 
-ul.topnav li a:hover:not(.active) {background-color: #111;}
+/* ul.topnav li a:hover:not(.active) {background-color: #111;}
 
 ul.topnav li a.active {background-color: #4CAF50;}
 
-ul.topnav li.right {float: right;}
+ul.topnav li.right {float: right;} */
 
 @media screen and (max-width: 600px){
     ul.topnav li.right, 
