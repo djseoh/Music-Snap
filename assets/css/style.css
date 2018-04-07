@@ -87,10 +87,11 @@ body {
 .progress {
   border: 0.15em solid #eee;
   height: 1em;
+  background-color: transparent;
 }
 
 .progress__bar {
-  background-color: rgb(0, 0, 0);
+  background-color: rgb(255, 255, 255);
   border: 0.1em solid transparent;
   height: 0.75em;
 }

@@ -127,7 +127,7 @@ spotifyPlayer.on('update', response => {
 spotifyPlayer.on('login', user => {
     spotifyApi.setAccessToken(spotifyPlayer.accessToken);
     if (user === null) {
-        loginContainer.style.display = 'block';
+        loginContainer.style.display = 'flex';
         mainContainer.style.display = 'none';
     } else {
         loginContainer.style.display = 'none';
