@@ -125,6 +125,8 @@ spotifyPlayer.on('update', response => {
             mainContainer.innerHTML = template(response);
             break;
         case (response.is_playing !== clientObj.is_playing):
+            let resp = response.is_playing ? 'Playing' : 'Paused'
+            $('.now-playing__status').html(resp);
             $('.progress__bar').attr('style', 'width:' + (response.progress_ms * 100 / response.item.duration_ms) + '%');
             break;
         case (response.progress_ms !== clientObj.progress_ms):
@@ -143,9 +145,8 @@ spotifyPlayer.on('login', user => {
     } else {
         loginContainer.style.display = 'none';
         mainContainer.style.display = 'block';
+        $('#user').html('Welcome ' + user.display_name)
     }
-    console.log(user)
-    $('#user').html('Welcome ' + user.display_name)
 });
 
 loginButton.addEventListener('click', () => {
