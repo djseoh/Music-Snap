@@ -18,8 +18,6 @@ var template = function (data) {
     var songtitle = data.item.name;
     var artist = data.item.artists[0].name;
 
-    console.log(songtitle)
-    console.log(artist);
     //check if entered song title is blank
     if (songtitle !== "") {
 
@@ -37,14 +35,8 @@ var template = function (data) {
             jsonpCallback: 'jsonp_callback',
             contentType: 'application/json',
             success: function (data) {
-                console.log(data);
-
-                console.log(data.message.body.lyrics.lyrics_body);
-
                 lyrics = data.message.body.lyrics;
-
                 $('.lyrics').html(lyrics.lyrics_body + '<br><br>' + lyrics.lyrics_copyright);
-
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(jqXHR);
@@ -66,13 +58,9 @@ var template = function (data) {
             url: "https://ws.audioscrobbler.com/2.0/?method=artist.getinfo",
             contentType: 'application/json',
             success: function (data) {
-                console.log(data);
-
                 var bio = data.artist.bio.summary;
                 var artistpic = data.artist.image[2]['#text'];
                 var relatedartists = data.artist.similar.artist;
-                console.log(relatedartists);
-
                 $('#artist-bio').html(bio);
 
                 $("#related-artist-table > thead").append("<tr><th>Related Artists</th></tr>")
@@ -83,8 +71,6 @@ var template = function (data) {
                         + relatedartists[i].image[1]['#text'] + "></td><td>"
                         + relatedartists[i].name + "</td><td>"
                         + '<a href="' + relatedartists[i].url + '"target="_blank">' + relatedartists[i].name + " on lastFM</a></td></tr>");
-
-                    console.log(relatedartists[i]);
 
                 }
             }
@@ -126,14 +112,13 @@ spotifyPlayer.on('update', response => {
     switch (true) {
         case (!clientObj || response.item.name !== clientObj.item.name):
             mainContainer.innerHTML = template(response);
-            console.log(response)
             break;
         case (response.is_playing !== clientObj.is_playing):
             $('.now-playing__status').html(response.is_playing);
-            $('.progress__bar').attr('style', 'width:' + (response.progress_ms * 100 / response.item.duration_ms) + '%')
+            $('.progress__bar').attr('style', 'width:' + (response.progress_ms * 100 / response.item.duration_ms) + '%');
             break;
         case (response.progress_ms !== clientObj.progress_ms):
-            $('.progress__bar').attr('style', 'width:' + (response.progress_ms * 100 / response.item.duration_ms) + '%')
+            $('.progress__bar').attr('style', 'width:' + (response.progress_ms * 100 / response.item.duration_ms) + '%');
             break;
     }
     clientObj = response;
@@ -141,8 +126,6 @@ spotifyPlayer.on('update', response => {
 
 spotifyPlayer.on('login', user => {
     spotifyApi.setAccessToken(spotifyPlayer.accessToken);
-    console.log(user);
-    console.log(spotifyPlayer.accessToken)
     if (user === null) {
         loginContainer.style.display = 'block';
         mainContainer.style.display = 'none';
