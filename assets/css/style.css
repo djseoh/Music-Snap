@@ -187,4 +187,8 @@ ul.topnav li.right {float: right;} */
       margin-top: 10px;
       width: 80vw;
     }
+
+    .main-wrapper {
+      margin-top: 20px;
+    }
 }
