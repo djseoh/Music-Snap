@@ -7,6 +7,12 @@
 html, body {
   height: 100%;
 }
+
+.topnav {
+  display: -webkit-flex;
+  flex-direction: row;
+}
+
 body {
   background-color: #333;
   color: #eee;
@@ -133,6 +139,14 @@ body {
 }
 .main-container {
   flex: 1;
+}
+
+#user {
+  margin-right: 20px;
+  margin-top: auto;
+  margin-left: auto;
+  margin-bottom: auto;
+  font-size: 1.25em;
 }
 /* ul.topnav {
     list-style-type: none;

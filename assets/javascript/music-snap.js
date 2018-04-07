@@ -4,6 +4,7 @@ var mainContainer = document.getElementById('js-main-container'),
     background = document.getElementById('js-background');
 
 let clientObj = '';
+let times = '';
 
 let spotifyPlayer = new SpotifyPlayer();
 let spotifyApi = new SpotifyWebApi();
@@ -84,7 +85,10 @@ var template = function (data) {
         <div class="now-playing__side">
             <div class="now-playing__name">${data.item.name}</div>
             <div class="now-playing__artist">${data.item.artists[0].name}</div>
-            <div class="now-playing__status">${data.is_playing ? 'Playing' : 'Paused'}</div>
+            <div class="playRow">
+                <div class="now-playing__status">${data.is_playing ? 'Playing' : 'Paused'}</div>
+                <div class="time"></div>
+            </div>
             <div class="progress">
                 <div class="progress__bar" style="width:${data.progress_ms * 100 / data.item.duration_ms}%"></div>
             </div>
@@ -113,20 +117,23 @@ var template = function (data) {
 }
 
 spotifyPlayer.on('update', response => {
+    let seconds = response.progress_ms / 1000;
+    let timeThing = '';
+    ((seconds % 60) < 10) ? (timeThing = '0' + Math.round(seconds % 60)) : (timeThing = Math.round(seconds % 60));
     switch (true) {
         case (!clientObj || response.item.name !== clientObj.item.name):
             mainContainer.innerHTML = template(response);
             break;
         case (response.is_playing !== clientObj.is_playing):
-            $('.now-playing__status').html(response.is_playing);
             $('.progress__bar').attr('style', 'width:' + (response.progress_ms * 100 / response.item.duration_ms) + '%');
             break;
         case (response.progress_ms !== clientObj.progress_ms):
             $('.progress__bar').attr('style', 'width:' + (response.progress_ms * 100 / response.item.duration_ms) + '%');
             break;
     }
+    $('.time').html(Math.floor(seconds / 60) + ':' + timeThing);
     clientObj = response;
-});
+    });
 
 spotifyPlayer.on('login', user => {
     spotifyApi.setAccessToken(spotifyPlayer.accessToken);
@@ -137,6 +144,8 @@ spotifyPlayer.on('login', user => {
         loginContainer.style.display = 'none';
         mainContainer.style.display = 'block';
     }
+    console.log(user)
+    $('#user').html('Welcome ' + user.display_name)
 });
 
 loginButton.addEventListener('click', () => {
