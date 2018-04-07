@@ -12,6 +12,7 @@ body {
   color: #eee;
   font-family: Helvetica, Arial;
   font-size: 3vmin;
+  overflow:hidden;
 }
 
 .now-playing__status, time {
@@ -152,7 +153,6 @@ ul.topnav li a {
 .lyrics{
     white-space: pre-line;
 }
-
 /* ul.topnav li a:hover:not(.active) {background-color: #111;}
 
 ul.topnav li a.active {background-color: #4CAF50;}

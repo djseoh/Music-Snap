@@ -90,8 +90,12 @@ var template = function (data) {
             </div>
             <marquee behavior="scroll" direction="up" style="height:200px;" scrollamount="5">
                 <div class="lyrics"></div>
+                <br>
+                <hr>
+                <br>
                 <div id="artist-bio"></div>
             </marquee>
+            <hr>
             <marquee behavior="scroll" direction="up" style="height:200px;" scrollamount="1">
                 <div id="relatedartist">
                     <table class="table table-hover" id='related-artist-table'>
